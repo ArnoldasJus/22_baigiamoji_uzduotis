@@ -68,11 +68,11 @@
                     <td><?php echo $vartotojai["vardas"]; ?></td>
                     <td><?php echo $vartotojai["pavarde"]; ?></td>
                     <td><?php echo $vartotojai["slapyvardis"]; ?></td>
-                    <td><?php echo $vartotojai["pavadinimas"]; ?></td>
+                    <td><?php echo $vartotojai["teisesPavadinimas"]; ?></td>
                     <td><?php echo $vartotojai["registracijos_data"]; ?></td>
                     <td><?php echo $vartotojai["paskutinis_prisijungimas"]; ?></td>
                 </tr>
-                
+
             <?php }
             ?>
 

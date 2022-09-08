@@ -20,7 +20,7 @@ class VartotojaiDatabase extends DatabaseConnection {
             $sortCol = "id";
             $sortDir = "ASC";
         }
-        $this->vartotojai = $this->selectWithJoin("vartotojai","vartotojai_teises","teises_id","id","LEFT JOIN",["vartotojai.id", "vartotojai.vardas", "vartotojai.pavarde", "vartotojai.slapyvardis", "vartotojai.registracijos_data", "vartotojai.paskutinis_prisijungimas", "vartotojai_teises.pavadinimas AS pavadinimas"], $sortCol, $sortDir);
+        $this->vartotojai = $this->selectWithJoin("vartotojai","vartotojai_teises","teises_id","id","LEFT JOIN",["vartotojai.id", "vartotojai.vardas", "vartotojai.pavarde", "vartotojai.slapyvardis", "vartotojai.registracijos_data", "vartotojai.paskutinis_prisijungimas", "vartotojai_teises.pavadinimas AS teisesPavadinimas"], $sortCol, $sortDir);
         return $this->vartotojai;
     }
 }
