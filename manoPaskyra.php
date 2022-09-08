@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php include("classes/vartotojaiDatabase-class.php"); ?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -21,7 +22,7 @@
                 <img src="images/favicon.png">
             </a>
 
-            
+
 
             <?php if (isset($_SESSION["arPrisijunges"]) && $_SESSION["arPrisijunges"] == 1) { ?>
                 <form class="d-flex" method="POST" action="index.php">
@@ -43,7 +44,40 @@
         </div>
     </nav>
 
-    
+    <div class="container">
+        <h2>Vartotojai</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Vardas</th>
+                <th>Pavardė</th>
+                <th>Slapyvardis</th>
+                <th>Teisės</th>
+                <th>Registracijos data</th>
+                <th>Paskutinis prisijungimas</th>
+            </tr>
+
+            <?php
+                $vartotojai = new VartotojaiDatabase();
+                $vartotojai = $vartotojai->getVartotojai();
+                foreach ($vartotojai as $vartotojas) {
+            ?>
+
+                <tr>
+                    <td><?php echo $vartotojai["id"]; ?></td>
+                    <td><?php echo $vartotojai["vardas"]; ?></td>
+                    <td><?php echo $vartotojai["pavarde"]; ?></td>
+                    <td><?php echo $vartotojai["slapyvardis"]; ?></td>
+                    <td><?php echo $vartotojai["pavadinimas"]; ?></td>
+                    <td><?php echo $vartotojai["registracijos_data"]; ?></td>
+                    <td><?php echo $vartotojai["paskutinis_prisijungimas"]; ?></td>
+                </tr>
+                
+            <?php }
+            ?>
+
+        </table>
+    </div>
 
 </body>
 

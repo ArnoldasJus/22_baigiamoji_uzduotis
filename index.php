@@ -38,7 +38,7 @@
                                     <form method="POST" action="index.php">
 
                                         <h2 class="fw-bold mb-2 text-uppercase">Prisijungimas</h2>
-                                        <p class="text-white-50 mb-5">Įveskite savo slapyvardį ir slaptažodį!</p>
+                                        <p class="text-white-50 mb-5">Įveskite savo slapyvardį ir slaptažodį</p>
 
                                         <div class="form-outline form-white mb-4">
                                             <input name="slapyvardis" type="text" id="typeEmailX" class="form-control form-control-lg" />
