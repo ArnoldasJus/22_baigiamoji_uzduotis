@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php include("classes/vartotojaiDatabase-class.php"); ?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -22,7 +23,7 @@
             <button type="submit" name="atsijungti">Atsijungti</button>
         </form> -->
 
-       <?php header("Location: manoPaskyra.php"); ?>
+        <?php header("Location: manoPaskyra.php"); ?>
 
     <?php } else { ?>
 
@@ -41,14 +42,16 @@
                                         <p class="text-white-50 mb-5">Įveskite savo slapyvardį ir slaptažodį</p>
 
                                         <div class="form-outline form-white mb-4">
-                                            <input name="slapyvardis" type="text" id="typeEmailX" class="form-control form-control-lg" />
+                                            <input name="slapyvardis" type="text" id="typeEmailX" class="form-control form-control-lg" required/>
                                             <label class="form-label" for="typeEmailX">Slapyvardis</label>
                                         </div>
 
                                         <div class="form-outline form-white mb-4">
-                                            <input name="slaptazodis" type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                            <input name="slaptazodis" type="password" id="typePasswordX" class="form-control form-control-lg" required/>
                                             <label class="form-label" for="typePasswordX">Slaptažodis</label>
                                         </div>
+
+                                        <div id="message"></div>
 
                                         <button name="patvirtinti" class="btn btn-outline-light btn-lg px-5" type="submit">Prisijungti</button>
 

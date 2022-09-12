@@ -1,4 +1,9 @@
 <?php session_start(); ?>
+<?php include("classes/vartotojaiDatabase-class.php"); ?>
+<?php 
+$vartotojaiDatabase = new VartotojaiDatabase();
+$vartotojaiDatabase->createVartotojas();
+?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -33,7 +38,7 @@
 
                                 <div class="mb-md-3 mt-md-4 pb-5">
 
-                                    <form method="POST" action="index.php">
+                                    <form method="POST">
 
                                         <h2 class="fw-bold mb-2 text-uppercase">Registracija</h2>
                                         <p class="text-white-50 mb-5">Įveskite savo duomenis</p>
@@ -60,7 +65,6 @@
 
                                         <button name="patvirtinti" class="btn btn-outline-light btn-lg px-5" type="submit">Registuotis</button>
                                     </form>
-
 
                                 </div>
 

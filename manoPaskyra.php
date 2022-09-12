@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 <?php include("classes/vartotojaiDatabase-class.php"); ?>
+<?php include("classes/imonesDatabase-class.php"); ?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -44,9 +45,9 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container my-5 text-white">
         <h2>Vartotojai</h2>
-        <table class="table table-striped">
+        <table class="table table-dark text-white">
             <tr>
                 <th>ID</th>
                 <th>Vardas</th>
@@ -55,22 +56,57 @@
                 <th>Teisės</th>
                 <th>Registracijos data</th>
                 <th>Paskutinis prisijungimas</th>
+                <th>Veiksmai</th>
             </tr>
 
             <?php
-                $vartotojai = new VartotojaiDatabase();
-                $vartotojai = $vartotojai->getVartotojai();
-                foreach ($vartotojai as $vartotojas) {
+            $vartotojai = new VartotojaiDatabase();
+            $vartotojai = $vartotojai->getVartotojai();
+
+            foreach ($vartotojai as $vartotojas) {
             ?>
 
                 <tr>
-                    <td><?php echo $vartotojai["id"]; ?></td>
-                    <td><?php echo $vartotojai["vardas"]; ?></td>
-                    <td><?php echo $vartotojai["pavarde"]; ?></td>
-                    <td><?php echo $vartotojai["slapyvardis"]; ?></td>
-                    <td><?php echo $vartotojai["teisesPavadinimas"]; ?></td>
-                    <td><?php echo $vartotojai["registracijos_data"]; ?></td>
-                    <td><?php echo $vartotojai["paskutinis_prisijungimas"]; ?></td>
+                    <td><?php echo $vartotojas["id"]; ?></td>
+                    <td><?php echo $vartotojas["vardas"]; ?></td>
+                    <td><?php echo $vartotojas["pavarde"]; ?></td>
+                    <td><?php echo $vartotojas["slapyvardis"]; ?></td>
+                    <td><?php echo $vartotojas["teisesPavadinimas"]; ?></td>
+                    <td><?php echo $vartotojas["registracijos_data"]; ?></td>
+                    <td><?php echo $vartotojas["paskutinis_prisijungimas"]; ?></td>
+                    <td>X O</td>
+                </tr>
+
+            <?php }
+            ?>
+
+        </table>
+    </div>
+
+    <div class="container text-white">
+        <h2>Įmonės</h2>
+        <table class="table table-dark text-white">
+            <tr>
+                <th>ID</th>
+                <th>Pavadinimas</th>
+                <th>Įmonės tipas</th>
+                <th>Aprašymas</th>
+                <th>Veiksmai</th>
+            </tr>
+
+            <?php
+            $imones = new ImonesDatabase();
+            $imones = $imones->getImones();
+
+            foreach ($imones as $imone) {
+            ?>
+
+                <tr>
+                    <td><?php echo $imone["id"]; ?></td>
+                    <td><?php echo $imone["pavadinimas"]; ?></td>
+                    <td><?php echo $imone["imonesTipas"]; ?></td>
+                    <td><?php echo $imone["aprasymas"]; ?></td>
+                    <td>X O</td>
                 </tr>
 
             <?php }

@@ -128,11 +128,28 @@ class DatabaseConnection {
         }
     }
 
+
+    // SELECT TWO METHOD (GALIMAI NEREIKALINGAS)
+    public function selectTwoAction($table, $col1, $col2)
+    {
+        try {
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT * FROM `$table` WHERE col1 = $col1 AND col2 = $col2";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
+            return $result;
+        } catch (PDOException $e) {
+            return "Nepavyko vykdyti uzklausos: " . $e->getMessage();
+        }
+    }
+
+
     public function __destruct() {
         $this->conn = null;
       echo "Atjungta is duomenu bazes sekmingai";
     }
-
 
 }
 
