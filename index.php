@@ -1,5 +1,12 @@
 <?php session_start(); ?>
 <?php include("classes/vartotojaiDatabase-class.php"); ?>
+
+<?php $vartotojaiDatabase = new VartotojaiDatabase();
+    $vartotojaiDatabase->loginVartotojas(); 
+    ?>
+<!-- Dabar viskas ka reikia padaryti -->
+<!-- Sita vieta kur pazymejau keliauja i vartotojaiDatabase -->
+
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -19,9 +26,6 @@
 
 
     <?php if (isset($_SESSION["arPrisijunges"]) && $_SESSION["arPrisijunges"] == 1) { ?>
-        <!-- <form method="POST" action="index.php">
-            <button type="submit" name="atsijungti">Atsijungti</button>
-        </form> -->
 
         <?php header("Location: manoPaskyra.php"); ?>
 
@@ -36,7 +40,7 @@
 
                                 <div class="mb-md-4 mt-md-4 pb-4">
 
-                                    <form method="POST" action="index.php">
+                                    <form method="POST">
 
                                         <h2 class="fw-bold mb-2 text-uppercase">Prisijungimas</h2>
                                         <p class="text-white-50 mb-5">Įveskite savo slapyvardį ir slaptažodį</p>
@@ -69,33 +73,6 @@
             </div>
         </section>
     <?php } ?>
-
-    <?php
-
-    $slapyvardis = "admin";
-    $slaptazodis = "123456";
-
-    if (isset($_POST["patvirtinti"])) {
-        $input_slapyvardis = $_POST["slapyvardis"];
-        $input_slaptazodis = $_POST["slaptazodis"];
-
-        if ($input_slapyvardis == $slapyvardis && $input_slaptazodis == $slaptazodis) {
-            //echo "Sveiki prisijungę, $vardas!";
-            $_SESSION["arPrisijunges"] = 1;
-            header("Location: manoPaskyra.php");
-        } else {
-            echo "Įvesti duomenys neteisingi";
-            //header("Location: register.php");
-        }
-    }
-
-    if (isset($_POST["atsijungti"])) {
-        session_destroy();
-        header("Location: index.php");
-    }
-
-    ?>
-
 
 </body>
 

@@ -12,7 +12,7 @@ class DatabaseConnection {
         try {
             $this->conn = new PDO("mysql:host=$this->host;dbname=$this->database", $this->user, $this->password);
             //$this->conn->exec("set names utf8");
-            echo "Prisijungta prie duomenu bazes sekmingai";
+            //echo "Prisijungta prie duomenu bazes sekmingai";
         } catch(PDOException $e) {
             echo "Prisijungti prie duomenu bazes nepavyko: " . $e->getMessage();
         }
@@ -56,6 +56,8 @@ class DatabaseConnection {
             echo "Nepavyko sukurti naujo iraso: " . $e->getMessage();
         }
 
+        //var_dump($sql);
+
     }
 
     public function deleteAction($table, $id) {
@@ -68,6 +70,7 @@ class DatabaseConnection {
         catch(PDOException $e) {
             echo "Nepavyko istrinti iraso: " . $e->getMessage();
         }
+        
     }
 
     public function updateAction($table, $id, $data) {
@@ -91,7 +94,7 @@ class DatabaseConnection {
               echo "Nepavyko atnaujinti iraso: " . $e->getMessage();
        }
     }
-
+    //sitas metodas atrenka tik viena rezultata pagal ID, mum is esmes reikia kad paimtume viena rezultata tik ne pagal id o pagal slapyvardi ir slaptazodi
     public function selectOneAction($table, $id) {
         try {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -102,6 +105,42 @@ class DatabaseConnection {
             $result = $stmt->fetchAll();
             return $result;
         } catch(PDOException $e) {
+            return "Nepavyko vykdyti uzklausos: " . $e->getMessage();
+        }
+    }
+
+    public function selectRole($slapyvardis, $teises_id) {
+        try {
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT * FROM `vartotojai` WHERE slapyvardis = $slapyvardis AND teises_id = $teises_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
+            return $result;
+        } catch (PDOException $e) {
+            return "Nepavyko vykdyti uzklausos: " . $e->getMessage();
+        }
+    }
+
+    public function attemptLogin($slapyvardis, $slaptazodis) {
+
+        $slapyvardis = "'".$slapyvardis."'";
+        $slaptazodis = "'" . $slaptazodis . "'";
+
+        try {
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT * FROM `vartotojai` WHERE slapyvardis = $slapyvardis AND slaptazodis = $slaptazodis";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            //dabar gali buti tik du atvejai: arba bus surastas vienas vartotojas arba 0
+            $result = $stmt->fetchAll();
+
+            //sitoje vietoje gaunas taip: jei prisijungimas sekmingas grazins 1, jei nesekmingas 0
+            return count($result);
+        } catch (PDOException $e) {
             return "Nepavyko vykdyti uzklausos: " . $e->getMessage();
         }
     }
@@ -128,27 +167,9 @@ class DatabaseConnection {
         }
     }
 
-
-    // SELECT TWO METHOD (GALIMAI NEREIKALINGAS)
-    public function selectTwoAction($table, $col1, $col2)
-    {
-        try {
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "SELECT * FROM `$table` WHERE col1 = $col1 AND col2 = $col2";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $result = $stmt->fetchAll();
-            return $result;
-        } catch (PDOException $e) {
-            return "Nepavyko vykdyti uzklausos: " . $e->getMessage();
-        }
-    }
-
-
     public function __destruct() {
         $this->conn = null;
-      echo "Atjungta is duomenu bazes sekmingai";
+      //echo "Atjungta is duomenu bazes sekmingai";
     }
 
 }

@@ -24,36 +24,66 @@ class VartotojaiDatabase extends DatabaseConnection {
     }
 
 
-    //  NEVEIKIA
+    //  VEIKIA
     public function createVartotojas() {
-        if(isset($_POST["submit"])) {
+        //cia blogas buvo pavadinimas mygtuko, ne submit, o patvirtinti
+        if(isset($_POST["patvirtinti"])) {
             $vartotojas = array(
-                "vardas" => $_POST["vardas"],
-                "pavarde" => $_POST["pavarde"],
-                "slapyvardis" => $_POST["slapyvardis"],
-                //"teises_id" => [3],
-                "slaptazodis" => $_POST["slaptazodis"]
-                //"registracijos_data" => ["date()"],
-                //"paskutinis_prisijungimas" => ""
+                "vardas" => "'".$_POST["vardas"]."'",
+                "pavarde" => "'" . $_POST["pavarde"] . "'",
+                "slapyvardis" => "'" . $_POST["slapyvardis"] . "'",
+                //cia buvo sumaisytas eiliskumas
+                "slaptazodis" => "'" . $_POST["slaptazodis"] . "'",
+                "teises_id" => 3,
+                "registracijos_data" => "'" . date("Y/m/d") ."'",
+                "paskutinis_prisijungimas" => "'" . "" . "'"
             );
-            $this->insertAction("vartotojai", ["vardas", "pavarde", "slapyvardis", "slaptazodis"], ["'" . $vartotojas["vardas"] . "'", "'" . $vartotojas["pavarde"] . "'", "'" . $vartotojas["slapyvardis"] . "'", "'" . $vartotojas["slaptazodis"] . "'"]);
-            //var_dump($vartotojas);
+
+            // var_dump(implode(",", $vartotojas));
+            // $this->insertAction("vartotojai", ["vardas", "pavarde", "slapyvardis", "slaptazodis", "teises_id", "registracijos_data", "paskutinis_prisijungimas"], ["'" . $vartotojas["vardas"] . "'", "'" . $vartotojas["pavarde"] . "'", "'" . $vartotojas["slapyvardis"] . "'", "'" . $vartotojas["slaptazodis"] . "'", "'" . $vartotojas["teises_id"] . "'", "'" . date("Y/m/d"). "'", "'" . $vartotojas["paskutinis_prisijungimas"] . "'" ]);
+
+            //insert action neverta taip rasyt kaip virsuje uzkomentuota
+            //tuoj paziuresiu del login
+            $this->insertAction("vartotojai", ["vardas", "pavarde", "slapyvardis", "slaptazodis", "teises_id", "registracijos_data", "paskutinis_prisijungimas"], $vartotojas);
+
+            return $vartotojas;
         }
     }
 
-    // VARTOTOJO TIKRINIMO METODAS (NEVEIKIA)
-    public function egzistuojaVartotojai(){
+    //kaip sukurei metoda createVartotojas, gali sukurti metoda loginVartotojas
 
-        if (isset($_GET["sortCol"]) && isset($_GET["sortDir"])) {
-            $sortCol = $_GET["sortCol"];
-            $sortDir = $_GET["sortDir"];
-        } else {
-            $sortCol = "id";
-            $sortDir = "ASC";
+    public function loginVartotojas() {
+
+        //slapyvardis is slaptazodis turetu buti ne statines reiksmes, del to galime padaryti taip
+    
+        if (isset($_POST["patvirtinti"])) {
+            $input_slapyvardis = $_POST["slapyvardis"];
+            $input_slaptazodis = $_POST["slaptazodis"];
+
+            //kvieciame duomenu bazes metoda kuri sukureme
+
+           $attemptLogin =  $this->attemptLogin($input_slapyvardis, $input_slaptazodis);//sekmingai 1 nesekmingai 0
+            //ir pasikeicia ifas
+         if ($attemptLogin == 1) {
+                 //echo "Sveiki prisijungę, $vardas!";
+                $_SESSION["arPrisijunges"] = 1;
+                 header("Location: manoPaskyra.php");
+         } else {
+                 echo "Įvesti duomenys neteisingi";
+                 //header("Location: register.php");
+         }
+
         }
-        $this->vartotojai = $this->selectTwoAction("vartotojai", "slapyvardis", "slaptazodis");
-        return $this->vartotojai;
+
     }
+
+    public function logout() {
+        if (isset($_POST["atsijungti"])) {
+            session_destroy();
+            header("Location: index.php");
+        }
+    }
+
 }
 
 ?>

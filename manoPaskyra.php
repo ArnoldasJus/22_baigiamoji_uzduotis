@@ -1,6 +1,9 @@
 <?php session_start(); ?>
 <?php include("classes/vartotojaiDatabase-class.php"); ?>
 <?php include("classes/imonesDatabase-class.php"); ?>
+<?php $vartotojaiDatabase = new VartotojaiDatabase();
+$vartotojaiDatabase->logout();
+?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -23,24 +26,14 @@
                 <img src="images/favicon.png">
             </a>
 
-
-
             <?php if (isset($_SESSION["arPrisijunges"]) && $_SESSION["arPrisijunges"] == 1) { ?>
-                <form class="d-flex" method="POST" action="index.php">
+                <form class="d-flex" method="POST">
                     <button type="submit" name="atsijungti" class="btn btn-danger my-2 my-sm-0">Atsijungti</button>
                 </form>
 
             <?php } else {
                 header("Location: index.php");
             } ?>
-
-
-            <?php
-            if (isset($_POST["atsijungti"])) {
-                session_destroy();
-                header("Location: index.php");
-            }
-            ?>
 
         </div>
     </nav>
@@ -114,6 +107,12 @@
 
         </table>
     </div>
+
+    <?php if ($_SESSION["teises_id"] == 4) { ?>
+        <div>
+            <h3>Jūs esate adminas</h3>
+        </div>
+    <?php } ?>
 
 </body>
 

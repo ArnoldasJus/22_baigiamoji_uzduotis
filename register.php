@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php include("classes/vartotojaiDatabase-class.php"); ?>
-<?php 
+<?php
 $vartotojaiDatabase = new VartotojaiDatabase();
 $vartotojaiDatabase->createVartotojas();
 ?>
@@ -44,22 +44,22 @@ $vartotojaiDatabase->createVartotojas();
                                         <p class="text-white-50 mb-5">Įveskite savo duomenis</p>
 
                                         <div class="form-outline form-white mb-2">
-                                            <input name="vardas" type="text" id="vardas" class="form-control form-control-lg" />
+                                            <input name="vardas" type="text" id="vardas" class="form-control form-control-lg" required />
                                             <label class="form-label" for="vardas">Vardas</label>
                                         </div>
 
                                         <div class="form-outline form-white mb-2">
-                                            <input name="pavarde" type="text" id="pavarde" class="form-control form-control-lg" />
+                                            <input name="pavarde" type="text" id="pavarde" class="form-control form-control-lg" required />
                                             <label class="form-label" for="pavarde">Pavardė</label>
                                         </div>
 
                                         <div class="form-outline form-white mb-2">
-                                            <input name="slapyvardis" type="text" id="slapyvardis" class="form-control form-control-lg" />
+                                            <input name="slapyvardis" type="text" id="slapyvardis" class="form-control form-control-lg" required />
                                             <label class="form-label" for="slapyvardis">Slapyvardis</label>
                                         </div>
 
                                         <div class="form-outline form-white mb-4">
-                                            <input name="slaptazodis" type="password" id="slaptazodis" class="form-control form-control-lg" />
+                                            <input name="slaptazodis" type="password" id="slaptazodis" class="form-control form-control-lg" required/>
                                             <label class="form-label" for="slaptazodis">Slaptažodis</label>
                                         </div>
 
