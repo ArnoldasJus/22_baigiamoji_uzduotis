@@ -39,11 +39,6 @@ class VartotojaiDatabase extends DatabaseConnection {
                 "paskutinis_prisijungimas" => "'" . "" . "'"
             );
 
-            // var_dump(implode(",", $vartotojas));
-            // $this->insertAction("vartotojai", ["vardas", "pavarde", "slapyvardis", "slaptazodis", "teises_id", "registracijos_data", "paskutinis_prisijungimas"], ["'" . $vartotojas["vardas"] . "'", "'" . $vartotojas["pavarde"] . "'", "'" . $vartotojas["slapyvardis"] . "'", "'" . $vartotojas["slaptazodis"] . "'", "'" . $vartotojas["teises_id"] . "'", "'" . date("Y/m/d"). "'", "'" . $vartotojas["paskutinis_prisijungimas"] . "'" ]);
-
-            //insert action neverta taip rasyt kaip virsuje uzkomentuota
-            //tuoj paziuresiu del login
             $this->insertAction("vartotojai", ["vardas", "pavarde", "slapyvardis", "slaptazodis", "teises_id", "registracijos_data", "paskutinis_prisijungimas"], $vartotojas);
 
             return $vartotojas;
@@ -81,6 +76,12 @@ class VartotojaiDatabase extends DatabaseConnection {
         if (isset($_POST["atsijungti"])) {
             session_destroy();
             header("Location: index.php");
+        }
+    }
+
+    public function roleVartotojas() {
+        if ($_SESSION["arPrisijunges"] = 1) {
+            $_SESSION["teises_id"] = "selectRole()";
         }
     }
 
