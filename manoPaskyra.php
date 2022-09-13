@@ -3,6 +3,7 @@
 <?php include("classes/imonesDatabase-class.php"); ?>
 <?php $vartotojaiDatabase = new VartotojaiDatabase();
 $vartotojaiDatabase->logout();
+$vartotojaiDatabase->roleVartotojas();
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -114,6 +115,12 @@ $vartotojaiDatabase->logout();
     <?php if ($_SESSION["teises_id"] == 4) { ?>
         <div>
             <h3>Jūs esate adminas</h3>
+        </div>
+    <?php } ?>
+
+    <?php if ($_SESSION["teises_id"] == 3) { ?>
+        <div>
+            <h3>Jūs esate vartotojas</h3>
         </div>
     <?php } ?>
 

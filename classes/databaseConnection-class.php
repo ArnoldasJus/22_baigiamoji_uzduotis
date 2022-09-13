@@ -42,8 +42,7 @@ class DatabaseConnection {
 
 
         $cols = implode(",", $cols);
-        //masyva pavercia i teksta per skirtuka ["title", "description"] => "title,description"
-        $values = implode(",", $values);//  ["test", "test"] => "test,test"
+        $values = implode(",", $values);
 
         try {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -94,7 +93,7 @@ class DatabaseConnection {
               echo "Nepavyko atnaujinti iraso: " . $e->getMessage();
        }
     }
-    //sitas metodas atrenka tik viena rezultata pagal ID, mum is esmes reikia kad paimtume viena rezultata tik ne pagal id o pagal slapyvardi ir slaptazodi
+    
     public function selectOneAction($table, $id) {
         try {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -122,6 +121,8 @@ class DatabaseConnection {
         } catch (PDOException $e) {
             return "Nepavyko vykdyti uzklausos: " . $e->getMessage();
         }
+
+       //var_dump($sql);
     }
 
     public function attemptLogin($slapyvardis, $slaptazodis) {
@@ -135,11 +136,7 @@ class DatabaseConnection {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            //dabar gali buti tik du atvejai: arba bus surastas vienas vartotojas arba 0
             $result = $stmt->fetchAll();
-
-            //sitoje vietoje gaunas taip: jei prisijungimas sekmingas grazins 1, jei nesekmingas 0
             return count($result);
         } catch (PDOException $e) {
             return "Nepavyko vykdyti uzklausos: " . $e->getMessage();
