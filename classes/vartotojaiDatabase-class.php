@@ -79,9 +79,29 @@ class VartotojaiDatabase extends DatabaseConnection {
         }
     }
 
+    // public function roleVartotojas() {
+    //     if ($_SESSION["arPrisijunges"] = 1) {
+    //         $_SESSION["teises_id"] = "selectRole($slapyvardis, $teises_id)";
+    //     }
+    // }
+
     public function roleVartotojas() {
-        if ($_SESSION["arPrisijunges"] = 1) {
-            $_SESSION["teises_id"] = "selectRole()";
+
+
+        if (isset($_POST["patvirtinti"])) {
+            $slapyvardis = $_POST["slapyvardis"];
+            $teises_id = $_POST["slaptazodis"];
+
+            $attemptLogin =  $this->selectRole($slapyvardis, $teises_id);
+            
+            if ($attemptLogin == 1) {
+                
+                $_SESSION["arPrisijunges"] = 1;
+                header("Location: manoPaskyra.php");
+            } else {
+                echo "Įvesti duomenys neteisingi";
+                
+            }
         }
     }
 

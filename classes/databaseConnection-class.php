@@ -110,6 +110,9 @@ class DatabaseConnection {
     }
 
     public function selectRole($slapyvardis, $teises_id) {
+
+        // $slapyvardis = "'" . $slapyvardis . "'";
+        // $teises_id = "'" . $teises_id . "'";
         try {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "SELECT * FROM `vartotojai` WHERE slapyvardis = $slapyvardis AND teises_id = $teises_id";

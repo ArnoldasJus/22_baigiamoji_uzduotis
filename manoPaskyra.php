@@ -108,6 +108,9 @@ $vartotojaiDatabase->logout();
         </table>
     </div>
 
+    <?php var_dump($_SESSION);
+    ?>
+
     <?php if ($_SESSION["teises_id"] == 4) { ?>
         <div>
             <h3>Jūs esate adminas</h3>
