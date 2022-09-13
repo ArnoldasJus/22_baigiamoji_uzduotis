@@ -109,13 +109,11 @@ class DatabaseConnection {
         }
     }
 
-    public function selectRole($slapyvardis, $teises_id) {
+    public function selectRole($slapyvardis) {
 
-        // $slapyvardis = "'" . $slapyvardis . "'";
-        // $teises_id = "'" . $teises_id . "'";
         try {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "SELECT * FROM `vartotojai` WHERE slapyvardis = $slapyvardis AND teises_id = $teises_id";
+            $sql = "SELECT teises_id FROM `vartotojai` WHERE slapyvardis = $slapyvardis";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
