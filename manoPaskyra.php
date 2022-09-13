@@ -4,6 +4,7 @@
 <?php $vartotojaiDatabase = new VartotojaiDatabase();
 $vartotojaiDatabase->logout();
 $vartotojaiDatabase->roleVartotojas();
+$vartotojaiDatabase->istrintiVartotojas();
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -27,8 +28,12 @@ $vartotojaiDatabase->roleVartotojas();
                 <img src="images/favicon.png">
             </a>
 
+            <!-- <li class="nav-item text-white">
+                <a class="nav-link" href="vartotojai/create.php">Kurti vartotoją</a>
+            </li> -->
+
             <?php if (isset($_SESSION["arPrisijunges"]) && $_SESSION["arPrisijunges"] == 1) { ?>
-                <form class="d-flex" method="POST">
+                <form class="d-flex mb-0" method="POST">
                     <button type="submit" name="atsijungti" class="btn btn-danger my-2 my-sm-0">Atsijungti</button>
                 </form>
 
@@ -68,7 +73,12 @@ $vartotojaiDatabase->roleVartotojas();
                     <td><?php echo $vartotojas["teisesPavadinimas"]; ?></td>
                     <td><?php echo $vartotojas["registracijos_data"]; ?></td>
                     <td><?php echo $vartotojas["paskutinis_prisijungimas"]; ?></td>
-                    <td>X O</td>
+                    <td>
+                        <?php echo '<form method="POST" class="mb-0">'; ?>
+                        <?php echo '<input type="hidden" name="id" value='.$vartotojas["id"].'>' ?>
+                        <?php echo '<button class="btn p-0" type="submit" name="delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Ištrinti vartotoją"><img src="images/cancel.png"></button>' ?>
+                        <?php echo '</form>'; ?>
+                    </td>
                 </tr>
 
             <?php }

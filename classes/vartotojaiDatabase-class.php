@@ -25,7 +25,7 @@ class VartotojaiDatabase extends DatabaseConnection {
 
 
 
-    public function createVartotojas() {
+    public function registerVartotojas() {
 
         if(isset($_POST["patvirtinti"])) {
             $vartotojas = array(
@@ -40,18 +40,37 @@ class VartotojaiDatabase extends DatabaseConnection {
 
             $this->insertAction("vartotojai", ["vardas", "pavarde", "slapyvardis", "slaptazodis", "teises_id", "registracijos_data", "paskutinis_prisijungimas"], $vartotojas);
 
+            header("Location: index.php");
+           // return $vartotojas;
+        }
+    }
+
+    public function createVartotojas() {
+
+        if (isset($_POST["patvirtinti"])) {
+            $vartotojas = array(
+                "vardas" => "'" . $_POST["vardas"] . "'",
+                "pavarde" => "'" . $_POST["pavarde"] . "'",
+                "slapyvardis" => "'" . $_POST["slapyvardis"] . "'",
+                "slaptazodis" => "'" . $_POST["slaptazodis"] . "'",
+                "teises_id" => "'" . $_POST["teises_id"] . "'",
+                "registracijos_data" => "'" . date("Y/m/d") . "'",
+                "paskutinis_prisijungimas" => "'" . "" . "'"
+            );
+
+            $this->insertAction("vartotojai", ["vardas", "pavarde", "slapyvardis", "slaptazodis", "teises_id", "registracijos_data", "paskutinis_prisijungimas"], $vartotojas);
+
             return $vartotojas;
         }
     }
 
     public function loginVartotojas() {
 
-    
+        $msg = "";
+
         if (isset($_POST["patvirtinti"])) {
             $input_slapyvardis = $_POST["slapyvardis"];
             $input_slaptazodis = $_POST["slaptazodis"];
-
-            //kvieciame duomenu bazes metoda kuri sukureme
 
            $attemptLogin =  $this->attemptLogin($input_slapyvardis, $input_slaptazodis);//sekmingai 1 nesekmingai 0
             
@@ -60,7 +79,8 @@ class VartotojaiDatabase extends DatabaseConnection {
                 $_SESSION["arPrisijunges"] = 1;
                  header("Location: manoPaskyra.php");
          } else {
-                 echo "Įvesti duomenys neteisingi";
+                echo "Įvesti duomenys neteisingi";
+                $msg = "Įvesti duomenys neteisingi";
          }
 
         }
@@ -81,6 +101,14 @@ class VartotojaiDatabase extends DatabaseConnection {
             $_SESSION["teises_id"] = $this->selectRole($_SESSION["slapyvardis"]);  
         }
     }
+
+    public function istrintiVartotojas() {
+        if (isset($_POST["delete"])) {
+              $this->deleteAction("vartotojai", $_POST["id"]);  
+        }
+    }
+
+
 }
 
 ?>

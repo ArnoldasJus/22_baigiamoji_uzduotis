@@ -2,7 +2,7 @@
 <?php include("classes/vartotojaiDatabase-class.php"); ?>
 <?php
 $vartotojaiDatabase = new VartotojaiDatabase();
-$vartotojaiDatabase->createVartotojas();
+$vartotojaiDatabase->registerVartotojas();
 ?>
 <!DOCTYPE html>
 <html lang="lt">

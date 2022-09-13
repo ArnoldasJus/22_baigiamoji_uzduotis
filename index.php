@@ -2,8 +2,8 @@
 <?php include("classes/vartotojaiDatabase-class.php"); ?>
 
 <?php $vartotojaiDatabase = new VartotojaiDatabase();
-    $vartotojaiDatabase->loginVartotojas(); 
-    ?>
+$vartotojaiDatabase->loginVartotojas();
+?>
 <!-- Dabar viskas ka reikia padaryti -->
 <!-- Sita vieta kur pazymejau keliauja i vartotojaiDatabase -->
 
@@ -46,16 +46,16 @@
                                         <p class="text-white-50 mb-5">Įveskite savo slapyvardį ir slaptažodį</p>
 
                                         <div class="form-outline form-white mb-4">
-                                            <input name="slapyvardis" type="text" id="typeEmailX" class="form-control form-control-lg" required/>
+                                            <input name="slapyvardis" type="text" id="typeEmailX" class="form-control form-control-lg" required />
                                             <label class="form-label" for="typeEmailX">Slapyvardis</label>
                                         </div>
 
                                         <div class="form-outline form-white mb-4">
-                                            <input name="slaptazodis" type="password" id="typePasswordX" class="form-control form-control-lg" required/>
+                                            <input name="slaptazodis" type="password" id="typePasswordX" class="form-control form-control-lg" required />
                                             <label class="form-label" for="typePasswordX">Slaptažodis</label>
                                         </div>
 
-                                        <div id="message"></div>
+                                        <?php echo $msg; ?>
 
                                         <button name="patvirtinti" class="btn btn-outline-light btn-lg px-5" type="submit">Prisijungti</button>
 

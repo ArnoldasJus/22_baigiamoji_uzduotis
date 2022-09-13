@@ -40,22 +40,18 @@ class DatabaseConnection {
    
     public function insertAction($table, $cols, $values) {
 
-
         $cols = implode(",", $cols);
         $values = implode(",", $values);
 
         try {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql= "INSERT INTO `$table` ($cols) VALUES ($values)";
-            //var_dump($sql);
             $this->conn->exec($sql);
             echo "Pavyko sukurti nauja irasa";
 
         } catch (PDOException $e) {
             echo "Nepavyko sukurti naujo iraso: " . $e->getMessage();
         }
-
-        //var_dump($sql);
 
     }
 
