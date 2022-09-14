@@ -3,8 +3,11 @@
 <?php include("classes/imonesDatabase-class.php"); ?>
 <?php $vartotojaiDatabase = new VartotojaiDatabase();
 $vartotojaiDatabase->logout();
-$vartotojaiDatabase->roleVartotojas();
+//$vartotojaiDatabase->roleVartotojas();
 $vartotojaiDatabase->istrintiVartotojas();
+?>
+<?php $imonesDatabase = new ImonesDatabase();
+$imonesDatabase->istrintiImones();
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -75,7 +78,7 @@ $vartotojaiDatabase->istrintiVartotojas();
                     <td><?php echo $vartotojas["paskutinis_prisijungimas"]; ?></td>
                     <td>
                         <?php echo '<form method="POST" class="mb-0">'; ?>
-                        <?php echo '<input type="hidden" name="id" value='.$vartotojas["id"].'>' ?>
+                        <?php echo '<input type="hidden" name="id" value=' . $vartotojas["id"] . '>' ?>
                         <?php echo '<button class="btn p-0" type="submit" name="delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Ištrinti vartotoją"><img src="images/cancel.png"></button>' ?>
                         <?php echo '</form>'; ?>
                     </td>
@@ -85,6 +88,10 @@ $vartotojaiDatabase->istrintiVartotojas();
             ?>
 
         </table>
+        <?php
+        // $vartotojai = new VartotojaiDatabase();
+        // $vartotojaiDatabase->istrintiVartotojas();
+        ?>
     </div>
 
     <div class="container text-white">
@@ -110,29 +117,36 @@ $vartotojaiDatabase->istrintiVartotojas();
                     <td><?php echo $imone["pavadinimas"]; ?></td>
                     <td><?php echo $imone["imonesTipas"]; ?></td>
                     <td><?php echo $imone["aprasymas"]; ?></td>
-                    <td>X O</td>
+                    <td>
+                        <?php echo '<form method="POST" class="mb-0">'; ?>
+                        <?php echo '<input type="hidden" name="id" value=' . $imone["id"] . '>' ?>
+                        <?php echo '<button class="btn p-0" type="submit" name="delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Ištrinti įmonę"><img src="images/cancel.png"></button>' ?>
+                        <?php echo '</form>'; ?>
+                    </td>
                 </tr>
 
             <?php }
             ?>
 
         </table>
+        
     </div>
 
-    <?php var_dump($_SESSION);
-    ?>
-
-    <?php if ($_SESSION["teises_id"] == 4) { ?>
+    <!-- <?php //if ($_SESSION["teises_id"] == 4) { 
+            ?>
         <div>
             <h3>Jūs esate adminas</h3>
         </div>
-    <?php } ?>
+    <?php //} 
+    ?>
 
-    <?php if ($_SESSION["teises_id"] == 3) { ?>
+    <?php //if ($_SESSION["teises_id"] == 3) { 
+    ?>
         <div>
             <h3>Jūs esate vartotojas</h3>
         </div>
-    <?php } ?>
+    <?php //} 
+    ?> -->
 
 </body>
 

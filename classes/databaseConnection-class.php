@@ -47,7 +47,7 @@ class DatabaseConnection {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql= "INSERT INTO `$table` ($cols) VALUES ($values)";
             $this->conn->exec($sql);
-            echo "Pavyko sukurti nauja irasa";
+            echo "Pavyko sukurti naują įrašą";
 
         } catch (PDOException $e) {
             echo "Nepavyko sukurti naujo iraso: " . $e->getMessage();
@@ -60,7 +60,7 @@ class DatabaseConnection {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "DELETE FROM `$table` WHERE id = $id";
             $this->conn->exec($sql);
-            echo "Pavyko istrinti irasa";
+            //echo "<span class='border border-2 border-danger p-2 mb-4 rounded'>Įrašas ištrintas</span>";
         }
         catch(PDOException $e) {
             echo "Nepavyko istrinti iraso: " . $e->getMessage();

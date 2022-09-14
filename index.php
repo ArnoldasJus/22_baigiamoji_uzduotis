@@ -1,9 +1,7 @@
 <?php session_start(); ?>
 <?php include("classes/vartotojaiDatabase-class.php"); ?>
 
-<?php $vartotojaiDatabase = new VartotojaiDatabase();
-$vartotojaiDatabase->loginVartotojas();
-?>
+
 <!-- Dabar viskas ka reikia padaryti -->
 <!-- Sita vieta kur pazymejau keliauja i vartotojaiDatabase -->
 
@@ -55,7 +53,10 @@ $vartotojaiDatabase->loginVartotojas();
                                             <label class="form-label" for="typePasswordX">Slaptažodis</label>
                                         </div>
 
-                                        <?php echo $msg; ?>
+                                        <?php $vartotojaiDatabase = new VartotojaiDatabase();
+                                                $vartotojaiDatabase->loginVartotojas();
+                                        ?>
+                                        
 
                                         <button name="patvirtinti" class="btn btn-outline-light btn-lg px-5" type="submit">Prisijungti</button>
 

@@ -79,8 +79,7 @@ class VartotojaiDatabase extends DatabaseConnection {
                 $_SESSION["arPrisijunges"] = 1;
                  header("Location: manoPaskyra.php");
          } else {
-                echo "Įvesti duomenys neteisingi";
-                $msg = "Įvesti duomenys neteisingi";
+                echo "<div class='border border-2 border-danger p-2 mb-4 rounded'>Įvesti duomenys neteisingi!</div>";
          }
 
         }

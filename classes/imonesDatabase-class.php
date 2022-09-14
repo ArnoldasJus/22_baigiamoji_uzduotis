@@ -22,4 +22,10 @@ class ImonesDatabase extends DatabaseConnection {
         $this->imones = $this->selectWithJoin("imones", "imones_tipas","tipas_id","id","LEFT JOIN",["imones.id", "imones.pavadinimas", "imones_tipas.pavadinimas AS imonesTipas", "imones.aprasymas"], $sortCol, $sortDir);
         return $this->imones;
     }
+
+    public function istrintiImones() {
+        if (isset($_POST["delete"])) {
+            $this->deleteAction("imones", $_POST["id"]);
+        }
+    }
 }
