@@ -47,7 +47,7 @@ class VartotojaiDatabase extends DatabaseConnection {
 
     public function createVartotojas() {
 
-        if (isset($_POST["patvirtinti"])) {
+        if (isset($_POST["sukurti"])) {
             $vartotojas = array(
                 "vardas" => "'" . $_POST["vardas"] . "'",
                 "pavarde" => "'" . $_POST["pavarde"] . "'",
@@ -60,7 +60,8 @@ class VartotojaiDatabase extends DatabaseConnection {
 
             $this->insertAction("vartotojai", ["vardas", "pavarde", "slapyvardis", "slaptazodis", "teises_id", "registracijos_data", "paskutinis_prisijungimas"], $vartotojas);
 
-            return $vartotojas;
+            header("Location: manoPaskyra.php");
+            // return $vartotojas;
         }
     }
 

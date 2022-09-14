@@ -28,4 +28,20 @@ class ImonesDatabase extends DatabaseConnection {
             $this->deleteAction("imones", $_POST["id"]);
         }
     }
+
+    public function createImone() {
+
+        if (isset($_POST["sukurti"])) {
+            $imone = array(
+                "pavadinimas" => "'" . $_POST["pavadinimas"] . "'",
+                "tipas_id" => "'" . $_POST["tipas_id"] . "'",
+                "aprasymas" => "'" . $_POST["aprasymas"] . "'"
+            );
+
+            $this->insertAction("imones", ["pavadinimas", "tipas_id", "aprasymas"], $imone);
+
+            header("Location: manoPaskyra.php");
+            // return $imone;
+        }
+    }
 }

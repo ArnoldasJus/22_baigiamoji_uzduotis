@@ -5,9 +5,11 @@
 $vartotojaiDatabase->logout();
 //$vartotojaiDatabase->roleVartotojas();
 $vartotojaiDatabase->istrintiVartotojas();
+$vartotojaiDatabase->createVartotojas();
 ?>
 <?php $imonesDatabase = new ImonesDatabase();
 $imonesDatabase->istrintiImones();
+$imonesDatabase->createImone();
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -31,10 +33,6 @@ $imonesDatabase->istrintiImones();
                 <img src="images/favicon.png">
             </a>
 
-            <!-- <li class="nav-item text-white">
-                <a class="nav-link" href="vartotojai/create.php">Kurti vartotoją</a>
-            </li> -->
-
             <?php if (isset($_SESSION["arPrisijunges"]) && $_SESSION["arPrisijunges"] == 1) { ?>
                 <form class="d-flex mb-0" method="POST">
                     <button type="submit" name="atsijungti" class="btn btn-danger my-2 my-sm-0">Atsijungti</button>
@@ -47,8 +45,62 @@ $imonesDatabase->istrintiImones();
         </div>
     </nav>
 
-    <div class="container my-5 text-white">
-        <h2>Vartotojai</h2>
+    <div class="container my-5">
+
+        <div class="d-flex align-items-center">
+            <h2 class="text-white">Vartotojai</h2>
+            <button type="button" class="btn p-0 mx-3" data-bs-toggle="modal" data-bs-target="#naujasVartotojas" data-bs-toggle="tooltip" data-bs-placement="top" title="Sukurti vartotoją">
+                <img src="images/plus.png">
+            </button>
+
+            <div class="modal fade" id="naujasVartotojas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Naujo vartotojo sukūrimas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form method="POST">
+                                <p class="mb-3">Įveskite naujo vartotojo duomenis:</p>
+
+                                <div class="form-outline form-white mb-2">
+                                    <input name="vardas" type="text" id="vardas" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="vardas">Vardas</label>
+                                </div>
+
+                                <div class="form-outline form-white mb-2">
+                                    <input name="pavarde" type="text" id="pavarde" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="pavarde">Pavardė</label>
+                                </div>
+
+                                <div class="form-outline form-white mb-2">
+                                    <input name="slapyvardis" type="text" id="slapyvardis" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="slapyvardis">Slapyvardis</label>
+                                </div>
+
+                                <div class="form-outline form-white mb-2">
+                                    <input name="teises_id" type="text" id="teises_id" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="teises_id">Teisės ID</label>
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    <input name="slaptazodis" type="password" id="slaptazodis" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="slaptazodis">Slaptažodis</label>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button name="sukurti" type="submit" class="btn btn-success">Išsaugoti pakeitimus</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Uždaryti</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <table class="table table-dark text-white">
             <tr>
                 <th>ID</th>
@@ -88,14 +140,54 @@ $imonesDatabase->istrintiImones();
             ?>
 
         </table>
-        <?php
-        // $vartotojai = new VartotojaiDatabase();
-        // $vartotojaiDatabase->istrintiVartotojas();
-        ?>
     </div>
 
-    <div class="container text-white">
-        <h2>Įmonės</h2>
+    <div class="container mb-5">
+        <div class="d-flex align-items-center">
+            <h2 class="text-white">Įmonės</h2>
+            <button type="button" class="btn p-0 mx-3" data-bs-toggle="modal" data-bs-target="#naujaImone" data-bs-toggle="tooltip" data-bs-placement="top" title="Pridėti įmonę">
+                <img src="images/plus.png">
+            </button>
+
+            <div class="modal fade" id="naujaImone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Naujos įmonės pridėjimas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form method="POST">
+                                <p class="mb-3">Įveskite naujos įmonės duomenis:</p>
+
+                                <div class="form-outline form-white mb-2">
+                                    <input name="pavadinimas" type="text" id="pavadinimas" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="pavadinimas">Pavadinimas</label>
+                                </div>
+
+                                <div class="form-outline form-white mb-2">
+                                    <input name="tipas_id" type="text" id="tipas_id" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="tipas_id">Įmonės tipo ID</label>
+                                </div>
+
+                                <div class="form-outline form-white mb-2">
+                                    <input name="aprasymas" type="text" id="aprasymas" class="form-control form-control-lg" required />
+                                    <label class="form-label" for="aprasymas">Aprašymas</label>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button name="sukurti" type="submit" class="btn btn-success">Išsaugoti pakeitimus</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Uždaryti</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <table class="table table-dark text-white">
             <tr>
                 <th>ID</th>
@@ -129,7 +221,7 @@ $imonesDatabase->istrintiImones();
             ?>
 
         </table>
-        
+
     </div>
 
     <!-- <?php //if ($_SESSION["teises_id"] == 4) { 
